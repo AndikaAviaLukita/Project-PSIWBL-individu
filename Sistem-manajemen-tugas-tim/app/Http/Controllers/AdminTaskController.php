@@ -43,4 +43,29 @@ class AdminTaskController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Tugas berhasil dibuat!');
     }
+
+    public function edit(Task $task)
+    {
+        $users = User::where('role', 'user')->get();
+        return view('admin.tasks.edit', compact('task', 'users'));
+    }
+
+    public function update(Request $request, Task $task)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'assigned_to' => 'required|exists:users,id',
+            'due_date' => 'required|date',
+        ]);
+
+        $task->update($validated);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Tugas berhasil diperbarui!');
+    }
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('admin.dashboard')->with('success', 'Tugas berhasil dihapus!');
+    }
 }

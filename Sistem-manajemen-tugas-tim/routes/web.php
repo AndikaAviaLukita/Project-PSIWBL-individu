@@ -16,7 +16,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/tasks/create', [AdminTaskController::class, 'create'])->name('tasks.create');
     Route::post('/tasks', [AdminTaskController::class, 'store'])->name('tasks.store');
     
-    // Nanti kita tambah Edit/Delete disini
+    Route::get('/tasks/{task}/edit', [AdminTaskController::class, 'edit'])->name('tasks.edit');
+    Route::put('/tasks/{task}', [AdminTaskController::class, 'update'])->name('tasks.update');
+    Route::delete('/tasks/{task}', [AdminTaskController::class, 'destroy'])->name('tasks.destroy');
 });
 
 // --- RUTE USER

@@ -13,7 +13,6 @@ class AdminTaskController extends Controller
         // Mengambil semua tugas
         $tasks = Task::with('assignee')->latest()->get();
         
-        // PENTING: Harus mengarah ke folder admin/dashboard
         return view('admin.dashboard', compact('tasks'));
     }
 

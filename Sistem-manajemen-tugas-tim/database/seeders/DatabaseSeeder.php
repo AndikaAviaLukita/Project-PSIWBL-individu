@@ -3,23 +3,38 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Task;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
+    
     public function run(): void
     {
-        // User::factory(10)->create();
+        //Akun Admin
+        $admin = User::create([
+            'name' => 'Admin Project',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        //Akun User Biasa
+        $user = User::create([
+            'name' => 'Anggota Tim 1',
+            'email' => 'user@user.com',
+            'password' => Hash::make('password'),
+            'role' => 'user',
+        ]);
+
+        Task::create([
+            'title' => 'Setup Project Awal',
+            'description' => 'Melakukan instalasi Laravel, setup database, dan konfigurasi git.',
+            'status' => 'in_progress',
+            'due_date' => now()->addDays(2),
+            'assigned_to' => $user->id,
+            'created_by' => $admin->id,
         ]);
     }
 }

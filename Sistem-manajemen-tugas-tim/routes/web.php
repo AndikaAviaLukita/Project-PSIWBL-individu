@@ -16,6 +16,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminTaskController::class, 'index'])->name('dashboard');
+    Route::get('/tasks/create', [AdminTaskController::class, 'create'])->name('tasks.create');
+    Route::post('/tasks', [AdminTaskController::class, 'store'])->name('tasks.store');
 });
 
 Route::middleware('auth')->group(function () {

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminTaskController;
 use App\Http\Controllers\UserTaskController;
 use App\Http\Controllers\AdminGroupController;
+use App\Http\Controllers\UserGroupController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,6 +29,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [UserTaskController::class, 'index'])->name('dashboard');
     Route::patch('/tasks/{task}/update-status', [UserTaskController::class, 'updateStatus'])->name('tasks.update-status');
+
+    // (User Groups) 
+    Route::get('/groups', [UserGroupController::class, 'index'])->name('groups.index');
+    Route::post('/groups/{group}/join', [UserGroupController::class, 'join'])->name('groups.join');
+    Route::post('/groups/{group}/leave', [UserGroupController::class, 'leave'])->name('groups.leave');
 });
 
 // --- RUTE PROFILE

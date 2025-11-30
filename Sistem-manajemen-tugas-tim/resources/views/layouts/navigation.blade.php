@@ -22,17 +22,18 @@
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Admin Dashboard') }}
                         </x-nav-link>
-
                         <x-nav-link :href="route('admin.groups.index')" :active="request()->routeIs('admin.groups.*')">
-                            {{ __('Kelompok') }}
+                            {{ __('Kelola Kelompok') }}
                         </x-nav-link>
-                        
-                        @else
+                    @else
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard Saya') }}
                         </x-nav-link>
                         
-                        @endif
+                        <x-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.*')">
+                            {{ __('Cari Kelompok') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -84,9 +85,15 @@
                 <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                     {{ __('Admin Dashboard') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.groups.index')" :active="request()->routeIs('admin.groups.*')">
+                    {{ __('Kelola Kelompok') }}
+                </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('groups.index')" :active="request()->routeIs('groups.*')">
+                    {{ __('Cari Kelompok') }}
                 </x-responsive-nav-link>
             @endif
         </div>

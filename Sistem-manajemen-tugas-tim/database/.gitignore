@@ -1,1 +1,4 @@
 *.sqlite*
+*
+!.gitignore
+!database.sqlite

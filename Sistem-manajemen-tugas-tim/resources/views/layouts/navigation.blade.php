@@ -22,6 +22,10 @@
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Admin Dashboard') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('admin.groups.index')" :active="request()->routeIs('admin.groups.*')">
+                            {{ __('Kelompok') }}
+                        </x-nav-link>
                         
                         @else
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">

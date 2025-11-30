@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminTaskController;
 use App\Http\Controllers\UserTaskController;
+use App\Http\Controllers\AdminGroupController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,10 +16,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/dashboard', [AdminTaskController::class, 'index'])->name('dashboard');
     Route::get('/tasks/create', [AdminTaskController::class, 'create'])->name('tasks.create');
     Route::post('/tasks', [AdminTaskController::class, 'store'])->name('tasks.store');
-    
     Route::get('/tasks/{task}/edit', [AdminTaskController::class, 'edit'])->name('tasks.edit');
     Route::put('/tasks/{task}', [AdminTaskController::class, 'update'])->name('tasks.update');
     Route::delete('/tasks/{task}', [AdminTaskController::class, 'destroy'])->name('tasks.destroy');
+
+    // (Groups)
+    Route::resource('groups', AdminGroupController::class);
 });
 
 // --- RUTE USER
@@ -33,5 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';

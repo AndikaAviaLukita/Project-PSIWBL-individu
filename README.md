@@ -49,8 +49,9 @@ Ikuti langkah ini untuk menjalankan project di komputer lokal (Localhost):
 
 1.  **Clone Repository**
     ```bash
-    git clone [https://github.com/USERNAME-ANDA/TeamSync-Manager.git](https://github.com/USERNAME-ANDA/TeamSync-Manager.git)
-    cd TeamSync-Manager
+    git clone https://github.com/AndikaAviaLukita/Project-PSIWBL-individu.git
+    cd Project-PSIWBL-individu
+    cd Sistem-manajemen-tugas-tim
     ```
 
 2.  **Install Dependencies**
@@ -64,10 +65,10 @@ Ikuti langkah ini untuk menjalankan project di komputer lokal (Localhost):
     -   Duplikat file `.env.example` menjadi `.env`.
     -   Sesuaikan konfigurasi database di file `.env`.
         ```env
-        DB_CONNECTION=mysql
+        DB_CONNECTION=sqlite
         DB_HOST=127.0.0.1
         DB_PORT=3306
-        DB_DATABASE=teamsync_db
+        DB_DATABASE=laravel
         DB_USERNAME=root
         DB_PASSWORD=
         ```
@@ -110,6 +111,6 @@ Gunakan akun berikut untuk masuk ke dalam aplikasi setelah melakukan seeding:
 
 ## 👨‍💻 Author
 
-**Nama Anda**
--   **NIM:** (Masukkan NIM)
--   **Projek:** Pemrograman Web Lanjut (Laravel)
+**Nama:** Andika Avia Lukita
+-   **NIM:** 2303135262
+-   **Mata Kuliah:** Pengembangan Sistem Informasi Berbasis Web Lanjut

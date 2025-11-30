@@ -1,20 +1,48 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminTaskController;
+use App\Http\Controllers\UserTaskController;
+use App\Http\Controllers\AdminGroupController;
+use App\Http\Controllers\UserGroupController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// --- RUTE ADMIN
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminTaskController::class, 'index'])->name('dashboard');
+    Route::get('/tasks/create', [AdminTaskController::class, 'create'])->name('tasks.create');
+    Route::post('/tasks', [AdminTaskController::class, 'store'])->name('tasks.store');
+    Route::get('/tasks/{task}/edit', [AdminTaskController::class, 'edit'])->name('tasks.edit');
+    Route::put('/tasks/{task}', [AdminTaskController::class, 'update'])->name('tasks.update');
+    Route::delete('/tasks/{task}', [AdminTaskController::class, 'destroy'])->name('tasks.destroy');
 
+    // (Groups)
+    Route::resource('groups', AdminGroupController::class);
+});
+
+// --- RUTE USER
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [UserTaskController::class, 'index'])->name('dashboard');
+    Route::patch('/tasks/{task}/update-status', [UserTaskController::class, 'updateStatus'])->name('tasks.update-status');
+
+    // (User Groups) 
+    Route::get('/groups', [UserGroupController::class, 'index'])->name('groups.index');
+    Route::post('/groups/{group}/join', [UserGroupController::class, 'join'])->name('groups.join');
+    Route::post('/groups/{group}/leave', [UserGroupController::class, 'leave'])->name('groups.leave');
+});
+
+// --- RUTE PROFILE
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';

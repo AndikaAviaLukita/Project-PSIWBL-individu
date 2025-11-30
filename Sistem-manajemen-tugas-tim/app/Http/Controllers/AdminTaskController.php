@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Group;
 
 class AdminTaskController extends Controller
 {
@@ -18,9 +19,13 @@ class AdminTaskController extends Controller
 
     public function create()
     {
-        // Mengambil user untuk dropdown
-        $users = User::where('role', 'user')->get();
-        return view('admin.tasks.create', compact('users'));
+        // Ambil user biasa BESERTA data kelompok mereka (Eager Loading)
+        $users = User::where('role', 'user')->with('groups')->get();
+        
+        // Ambil semua kelompok untuk dropdown filter
+        $groups = Group::all();
+
+        return view('admin.tasks.create', compact('users', 'groups'));
     }
 
     public function store(Request $request)
@@ -46,8 +51,11 @@ class AdminTaskController extends Controller
 
     public function edit(Task $task)
     {
-        $users = User::where('role', 'user')->get();
-        return view('admin.tasks.edit', compact('task', 'users'));
+        // Sama seperti create, kita butuh data user + groups untuk form edit
+        $users = User::where('role', 'user')->with('groups')->get();
+        $groups = Group::all();
+
+        return view('admin.tasks.edit', compact('task', 'users', 'groups'));
     }
 
     public function update(Request $request, Task $task)
